@@ -4,9 +4,9 @@ layout: post
 title: Making Promises With jQuery Deferred
 ---
 
-Promises 就像小孩，易怀不易生。 --佚名
+Promises 就像生小孩，怀上容易生出来难。 --佚名
 
-你可能会将处理器指定给元素的`onclick`属性，就像`mywidget.onclick = myhandler`,从而将处理器和鼠标点击事件联系起来。如果其他方法也想指定给该点击事件就会有问题，因为一个属性只能被指定一个函数。后来，这个问题被DOM函数`addEventListener`所解决，因为这个函数允许你为事件添加多个监听器。快进到现在，在使用Ajax调用时出现类一个相似的问题。Ajax的限制是只支持一个回调函数。jQuery在1.5版本时引入类Deferred对象来解决这个问题。它能够将多个回调注册进回调队列，触发回调队列，并且能推迟发送任何同步或异步函数的成功或失败状态。本文中，我们将学习如何使用Deferred对象来实现Promises。
+你可能会将处理器指定给元素的 `onclick` 属性，就像 `mywidget.onclick = myhandler` , 从而将处理器和鼠标点击事件联系起来。如果其他方法也想指定给该点击事件就会有问题，因为一个属性只能被指定一个函数。后来，这个问题被DOM函数 `addEventListener` 所解决，因为这个函数允许你为事件添加多个监听器。快进到现在，在使用Ajax调用时出现类一个相似的问题。Ajax的限制是只支持一个回调函数。jQuery在1.5版本时引入类Deferred对象来解决这个问题。它能够将多个回调注册进回调队列，触发回调队列，并且能推迟发送任何同步或异步函数的成功或失败状态。本文中，我们将学习如何使用Deferred对象来实现Promises。
 
 ## Promise 里包含了什么?
 在jQuery 1.5之前，一个典型的Ajax调用是这样的：
@@ -30,7 +30,7 @@ promise.fail(errorFunc);
 promise.always(alwaysFunc);
 ```
 
-`always`处理器，对应了jQuery1.6之前的`complete()`,无论Ajax调用结果如何，都在`done()`或者`fail()`事件之后被调用。
+`always` 处理器，对应了jQuery1.6之前的 `complete()` ,无论Ajax调用结果如何，都在 `done()` 或者 `fail()` 事件之后被调用。
 done(), fail()和always三者都返回一样的jQuery XMLHttpRequest对象，所以可以串行使用：
 
 ```javascript
@@ -170,37 +170,3 @@ Promises是一种全新的方式来处理异步过程。忘记传统的回调，
 翻译自一篇旧文，我觉得关于jQuery.Deferred对象的使用总结得很好。在今后很长一段时间内，有些项目依然会依赖jQuery，也同样绕不开ajax调用，全面的掌握这种方式来处理promise在实际项目中很有用。
 
 [原文地址](http://www.htmlgoodies.com/beyond/javascript/making-promises-with-jquery-deferred.html)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
