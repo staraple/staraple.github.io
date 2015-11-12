@@ -12,11 +12,11 @@ Promises 就像小孩，易怀不易生。 --佚名
 在jQuery 1.5之前，一个典型的Ajax调用是这样的：
 
 ```javascript
-    $.ajax({
-        url: "/serverResource.txt",
-        success: successFunc,
-        error: errorFunc
-    });
+$.ajax({
+    url: "/serverResource.txt",
+    success: successFunc,
+    error: errorFunc
+});
 ```
 
 1.5之后，Ajax调用返回的对象(jqXHR)实现了[CommonJS Promises/A](http://wiki.commonjs.org/wiki/Promises/A)接口，这带来了极大的灵活性。
