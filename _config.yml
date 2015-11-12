@@ -57,8 +57,7 @@ highlighter: pygments
 permalink: /:title/
 
 redcarpet:
-  extensions: ["tables", "autolink", "strikethrough", "space_after_headers", "with_toc_data", "fenced_code_blocks"]
-
+  extensions: ["smart", "tables", "no_intra_emphasis", "autolink", "strikethrough", "space_after_headers", "superscript", "with_toc_data", "fenced_code_blocks"]
 # The release of Jekyll Now that you're using
 version: v1.1.0
 
