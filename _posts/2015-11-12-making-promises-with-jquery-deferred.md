@@ -1,8 +1,5 @@
 ---
-published: false
----
-
----
+published: true
 layout: post
 title: Making Promises With jQuery Deferred
 ---
