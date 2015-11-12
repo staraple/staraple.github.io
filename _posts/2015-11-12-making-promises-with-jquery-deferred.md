@@ -20,69 +20,77 @@ Promises 就像小孩，易怀不易生。 --佚名
 ```
 
 1.5之后，Ajax调用返回的对象(jqXHR)实现了[CommonJS Promises/A](http://wiki.commonjs.org/wiki/Promises/A)接口，这带来了极大的灵活性。
+
 ```javascript
-    var promise = $.ajax({
-        url: "/serverResource.txt"
-    });
-    promise.done(successFunc);
-    promise.fail(errorFunc);
-    promise.always(alwaysFunc);
+var promise = $.ajax({
+    url: "/serverResource.txt"
+});
+promise.done(successFunc);
+promise.fail(errorFunc);
+promise.always(alwaysFunc);
 ```
+
 `always`处理器，对应了jQuery1.6之前的`complete()`,无论Ajax调用结果如何，都在`done()`或者`fail()`事件之后被调用。
 done(), fail()和always三者都返回一样的jQuery XMLHttpRequest对象，所以可以串行使用：
+
 ```javascript
-    $.ajax("example.php")
-        .done(function(){alert("success");})
-        .fail(function(){alert("error");})
-        .always(function(){alert("complete")});
+$.ajax("example.php")
+    .done(function(){alert("success");})
+    .fail(function(){alert("error");})
+    .always(function(){alert("complete")});
 ```
+
 你也可以将jqXHR对象保存到一个变量中：
+
 ```javascript
-    var jqxhr = $.ajax("example.php")
-        .done(function(){alert("success")})
-        .fail(function(){alert("fail")})
-        .always(function(){alert("complete")});
-    //做点其他的事情
-    //设置另一个完成调用后要的处理器
-    jqxhr.always(function(){alert("another complete")});
+var jqxhr = $.ajax("example.php")
+    .done(function(){alert("success")})
+    .fail(function(){alert("fail")})
+    .always(function(){alert("complete")});
+//做点其他的事情
+//设置另一个完成调用后要的处理器
+jqxhr.always(function(){alert("another complete")});
 ```
 
 另一个结合处理器的方式时使用Promise接口中的`then()`方法，它可以接受三个处理器作为参数。对于jQuery,在1.8之前，你可以传一个函数数组给这个方法：
-```javascript
-    $.ajax({url:'/serverResource.txt'})
-        .then(
-            [successFunc1, successFunc2, successFunc3],
-            [errorFunc1, errorFunc2]
-    );
 
-    //same as
-    var jqxhr = $.ajax({url:'/serverResource.txt'});
-    jqxhr.done(successFunc1);
-    jqxhr.done(successFunc2);
-    jqxhr.done(successFunc3);
-    jqxhr.fail(errorFunc1);
-    jqxhr.fail(errorFunc2);
+```javascript
+$.ajax({url:'/serverResource.txt'})
+    .then(
+        [successFunc1, successFunc2, successFunc3],
+        [errorFunc1, errorFunc2]
+);
+
+//same as
+var jqxhr = $.ajax({url:'/serverResource.txt'});
+jqxhr.done(successFunc1);
+jqxhr.done(successFunc2);
+jqxhr.done(successFunc3);
+jqxhr.fail(errorFunc1);
+jqxhr.fail(errorFunc2);
 ```
 
 1.8之后，`then()`方法返回一个新的promise, 它可以通过函数过滤一个deferred对象的状态和数值。如果不需要对特定的事件类型指定处理器，可以传null值。
-```javascript
-    var promise = $.ajax({url:'/serverResource.txt'});
-    promise.then(successFunc, errorFunc);
 
-    var promise = $.ajax({url:'/serverResource.txt'});
-    promise.then(successFunc);
+```javascript
+var promise = $.ajax({url:'/serverResource.txt'});
+promise.then(successFunc, errorFunc);
+
+var promise = $.ajax({url:'/serverResource.txt'});
+promise.then(successFunc);
 ```
 
 
 ## 串联then()函数
+
 ```javascript
-    var promise = $.ajax('/serverScript1');
-    function getStuff(){
-        return $.ajax('/serverScript2');
-    }
-    promise.then(getStuff).then(function(serverScript2Data){
-        // 
-    });
+var promise = $.ajax('/serverScript1');
+function getStuff(){
+    return $.ajax('/serverScript2');
+}
+promise.then(getStuff).then(function(serverScript2Data){
+    // 
+});
 ```
 
 ## 合并 Promises
@@ -91,14 +99,15 @@ Promise方法$.when()方法等同于逻辑和操作符。传一堆Promise给它�
 - 有任一Promise被拒绝，新的Promise就被拒绝。
 
 下面的代码使用when()方法来同时进行两个Ajax调用，并在两个调用都完成后执行一个函数：
+
 ```javascript
-    var jqxhr1 = $.ajax('/serverResource1.txt');
-    var jqxhr2 = $.ajax('/serverResource2.txt');
-    $.when(jqxhr1, jqxhr2).done(function(result1, result2){
-        //处理两个返回值
-        //
-        alert("all complete");
-    })
+var jqxhr1 = $.ajax('/serverResource1.txt');
+var jqxhr2 = $.ajax('/serverResource2.txt');
+$.when(jqxhr1, jqxhr2).done(function(result1, result2){
+    //处理两个返回值
+    //
+    alert("all complete");
+})
 ```
 
 
@@ -107,49 +116,52 @@ Promise方法$.when()方法等同于逻辑和操作符。传一堆Promise给它�
 
 ## 创建自己的Deferred过程
 通过jQuery.Deferred()方法创建一个新的Deferred对象，我们可以配置我们自己的deferred过程。在下面的例子中，一个<div>或者<span>元素会基于过程的状态而被更新。
+
 ```javascript
-    var timer;
-    $('#result').html('waiting...');
-    var promise = process();
-    promise.done(function(){
-        $('#result').html('done.');
-    });
-    promise.progress(function(){
-        $('#result').html($('#result').html() + '.');
-    });
-    function process(){
-        var deferred = $.Deferred();
-        timer = setInterval(function(){
-            deferred.notify();
-        }, 1000)
-        setTimeout(function(){
-            clearInterval(timer);
-            deferred.resolve();
-        }, 10000);
-        return deferred.promise();
-    }
+var timer;
+$('#result').html('waiting...');
+var promise = process();
+promise.done(function(){
+    $('#result').html('done.');
+});
+promise.progress(function(){
+    $('#result').html($('#result').html() + '.');
+});
+function process(){
+    var deferred = $.Deferred();
+    timer = setInterval(function(){
+        deferred.notify();
+    }, 1000)
+    setTimeout(function(){
+        clearInterval(timer);
+        deferred.resolve();
+    }, 10000);
+    return deferred.promise();
+}
 ```
+
 使用then()方法后可以这样写：
+
 ```javascript
-    var timer;
-    (function (){
-        $('result').html('waiting...');
-        var deferred = $.Deferred();
-        timer = setInterval(function(){
-            deferred.notify();
-        }, 1000)
-        setTimeout(function(){
-            clearInterval(timer);
-            deferred.resolve();
-        }, 10000);
-        return deferred.promise();
-    })().then(function(){
-        $('#result').html('done.');
-    },
-    null,
-    function(){
-        $('#result').html($('#result').html() + '.');
-    });
+var timer;
+(function (){
+    $('result').html('waiting...');
+    var deferred = $.Deferred();
+    timer = setInterval(function(){
+        deferred.notify();
+    }, 1000)
+    setTimeout(function(){
+        clearInterval(timer);
+        deferred.resolve();
+    }, 10000);
+    return deferred.promise();
+})().then(function(){
+    $('#result').html('done.');
+},
+null,
+function(){
+    $('#result').html($('#result').html() + '.');
+});
 ```
 
 ## 结论
