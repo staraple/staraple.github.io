@@ -19,6 +19,14 @@ code {
   border-radius: 3px;
 }
 
+.highlight pre code {
+	background: transparent;
+}
+
+.highlight pre>code {
+	background: transparent;
+}
+
 // .highlight .c { color: #586E75 } /* Comment */
 // .highlight .err { color: #93A1A1 } /* Error */
 // .highlight .g { color: #93A1A1 } /* Generic */
