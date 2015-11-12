@@ -54,7 +54,9 @@ baseurl: ""
 
 markdown: redcarpet
 highlighter: pygments
-permalink: /:title/
+permalink:     /:year/:title/
+paginate_path: /articles/page:num/
+paginate:      10
 
 redcarpet:
   extensions: ["smart", "tables", "no_intra_emphasis", "autolink", "strikethrough", "space_after_headers", "superscript", "with_toc_data", "fenced_code_blocks"]
