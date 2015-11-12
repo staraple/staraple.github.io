@@ -1,11 +1,11 @@
 ---
 layout: page
-title: About
+title: 
 permalink: /about/
 ---
 
 Javascript 初学者
 
-### Contact me
+### 联系我 
 
 [staraple@gmail.com](mailto:staraple@gmail.com)
