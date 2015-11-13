@@ -170,3 +170,18 @@ function(){
 翻译自一篇旧文，我觉得关于 `jQuery.Deferred` 对象的使用总结得很好。在今后很长一段时间内，有些项目依然会依赖 `jQuery`，也同样绕不开 `ajax` 调用，全面的掌握这种方式来处理 `promise` 在实际项目中很有用。
 
 [原文地址](http://www.htmlgoodies.com/beyond/javascript/making-promises-with-jquery-deferred.html)
+
+
+--- 
+##问题
+### deferred 有哪些作用？
+- 可以为 `ajax` 调用指定多个回调
+- 解决多重回调函数的嵌套问题
+- 异步状态可以进行自主的控制
+
+### done 和 then 有哪些异同
+- 相同：两者都能串联使用，为 `resolved` 状态指定多个回调
+- 不同：`done` 可以对传入的参数进行过滤，将改变过的值往后传递；而`done` 不会进行过滤，传入回调的参数都是原始的 `resolved` 结果
+
+### deferred.promise() 返回的对象有什么特点?
+返回的 `promise` 对象是 `deferred` 对象的子集，只包含可以指定回调函数的方法，而不包含可以改变状态的方法。
